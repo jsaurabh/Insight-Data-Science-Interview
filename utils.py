@@ -37,3 +37,33 @@ def clean(x):
         return float(x)
     except:
         return math.nan
+
+def get_director(x):
+    for i in x:
+        if i['job'] == 'Director':
+            return i['name']
+    return math.nan
+
+def get_list(x, n = 5):
+    if isinstance(x, list):
+        names = [i['name'] for i in x]
+        if len(names) > n:
+            names = names[:n]
+        return names
+
+    return []
+
+def clean_list(x):
+    if isinstance(x, list):
+        return [str.lower(idx.replace(" ", "")) for idx in x]
+    else:
+        if isinstance(x, str):
+            return str.lower(x.replace(" ", ""))
+        else:
+            return ""
+        
+def create_feature(x):
+    keywords = ' '.join(x['keywords'])
+    cast = ' '.join(x['cast'])
+    genre = ' '.join(x['genres'])
+    return keywords + ' ' + cast + ' ' + genre + ' ' + str(x['director'])
